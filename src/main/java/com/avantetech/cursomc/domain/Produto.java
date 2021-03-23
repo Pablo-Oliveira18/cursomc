@@ -2,7 +2,9 @@ package com.avantetech.cursomc.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -36,6 +38,8 @@ public class Produto implements Serializable {
 	) 
 	private List<Categoria> categorias = new ArrayList<>();
 	
+	private Set<ItemPedido> itens = new HashSet<>();
+	
 	
 //	Quando se tem N:N uma terceira table é gerada, então com os paramentro acima informo:
 //	@JoinTable(name="PRODUTO_CATEGORIA" nome da tabela gerada;
@@ -54,6 +58,15 @@ public class Produto implements Serializable {
 		this.id = id;
 		this.nome = nome;
 		this.preco = preco;
+	}
+	
+	
+	public List<Pedido> getPedidos(){
+		List<Pedido> lista = new ArrayList<>();
+		for(ItemPedido x : itens) {
+			lista.add(x.getPedido());
+		}
+		return lista;
 	}
 
 	public Integer getId() {
@@ -87,6 +100,14 @@ public class Produto implements Serializable {
 	public void setCategorias(List<Categoria> categorias) {
 		this.categorias = categorias;
 	}
+	
+	public Set<ItemPedido> getItens() {
+		return itens;
+	}
+
+	public void setItens(Set<ItemPedido> itens) {
+		this.itens = itens;
+	}
 
 	@Override
 	public int hashCode() {
@@ -95,7 +116,8 @@ public class Produto implements Serializable {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
-
+	
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -117,7 +139,8 @@ public class Produto implements Serializable {
 	public String toString() {
 		return "Produto [id=" + id + ", nome=" + nome + ", preco=" + preco + ", categorias=" + categorias + "]";
 	}
-	
+
+
 	
 
 }
