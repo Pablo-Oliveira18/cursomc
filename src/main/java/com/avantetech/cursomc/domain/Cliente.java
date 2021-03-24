@@ -34,7 +34,7 @@ public class Cliente implements Serializable {
 	private Integer tipo;
 	
 	
-	@JsonIgnore // liberar a serialização
+
 	@OneToMany(mappedBy = "cliente")
 	private List<Endereco> enderecos = new ArrayList<>();
 	
