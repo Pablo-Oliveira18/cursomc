@@ -10,7 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 
 @Entity
@@ -24,7 +24,7 @@ public class Categoria implements Serializable {
 	private Integer id;
 	private String nome;
 	
-	@JsonIgnore // faz no lado que quer q venha os objetos associados.
+	
 	@ManyToMany(mappedBy = "categorias") // eu estou referenciado o mapeando do outro lado ou seja de Produtos.
 	private List<Produto> produtos = new ArrayList<>();
 	

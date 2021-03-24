@@ -24,10 +24,10 @@ public class CategoriaResource {
 	
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET) // estou esperando um ID como parametro
-	public ResponseEntity<?> find(@PathVariable Integer id) {
+	public ResponseEntity<Categoria> find(@PathVariable Integer id) {
 		// tenho que informa a anotação @PathVariable para saber q espero um id
 		
-		Categoria obj = service.buscar(id);
+		Categoria obj = service.find(id);
 		// passo a responsabilidade para meu service.
 		
 		return ResponseEntity.ok().body(obj);
@@ -42,6 +42,15 @@ public class CategoriaResource {
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().
 				path("/{id}").buildAndExpand(obj.getId()).toUri(); // pega a uri do novo recurso inserido
 		return ResponseEntity.created(uri).build();
+	}
+	
+	// UPDATE
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> update(@RequestBody Categoria obj, @PathVariable Integer id){
+		obj.setId(id);
+		obj = service.update(obj);
+		return ResponseEntity.noContent().build();
 	}
 
 }

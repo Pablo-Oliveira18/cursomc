@@ -17,7 +17,7 @@ public class ClienteService {
 	@Autowired // faz a auto instaciação do objeto
 	private ClienteRepository repo;
 
-	public Cliente buscar(Integer id)  {
+	public Cliente find(Integer id)  {
 		Optional<Cliente> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));

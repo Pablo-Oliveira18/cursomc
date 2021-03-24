@@ -19,10 +19,10 @@ public class ClientesResource {
 	
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET) // estou esperando um ID como parametro
-	public ResponseEntity<?> find(@PathVariable Integer id) {
+	public ResponseEntity<Cliente> find(@PathVariable Integer id) {
 		// tenho que informa a anotação @PathVariable para saber q espero um id
 		
-		Cliente obj = service.buscar(id);
+		Cliente obj = service.find(id);
 		// passo a responsabilidade para meu service.
 		
 		return ResponseEntity.ok().body(obj);
