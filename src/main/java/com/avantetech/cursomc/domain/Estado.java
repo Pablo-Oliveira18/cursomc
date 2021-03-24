@@ -11,7 +11,7 @@ import javax.persistence.Id;
 
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
@@ -28,8 +28,7 @@ public class Estado implements Serializable{
 	private Integer id;
 	private String nome;
 	
-	
-	@JsonBackReference // omitido na serialização
+	@JsonIgnore // omitido na serialização
 	@OneToMany(mappedBy = "estado") // 1 para muitos, um estado pertence a varias cidades. E qual objeto que mapeou o outro lado
 	private List<Cidade> cidades = new ArrayList<>();
 
