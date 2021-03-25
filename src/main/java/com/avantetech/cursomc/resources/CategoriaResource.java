@@ -4,9 +4,10 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -43,7 +44,8 @@ public class CategoriaResource {
 	
 	// INSERÇÃO
 	@RequestMapping(method = RequestMethod.POST) // iformando que o metodo é post
-	public ResponseEntity<Void> insert(@RequestBody Categoria obj){ // requesBody, faz o json transformar para objeto java
+	public ResponseEntity<Void> insert(@Valid @RequestBody CategoriaDTO objDto){ // requesBody, faz o json transformar para objeto java
+		Categoria obj = service.fromDTO(objDto);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().
 				path("/{id}").buildAndExpand(obj.getId()).toUri(); // pega a uri do novo recurso inserido
@@ -52,7 +54,8 @@ public class CategoriaResource {
 	
 	// UPDATE
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> update(@RequestBody Categoria obj, @PathVariable Integer id){
+	public ResponseEntity<Void> update(@Valid @RequestBody CategoriaDTO objDto, @PathVariable Integer id){
+		Categoria obj = service.fromDTO(objDto);
 		obj.setId(id);
 		obj = service.update(obj);
 		return ResponseEntity.noContent().build();
