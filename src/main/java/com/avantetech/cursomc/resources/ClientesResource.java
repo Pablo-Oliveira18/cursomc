@@ -1,5 +1,6 @@
 package com.avantetech.cursomc.resources;
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.avantetech.cursomc.domain.Cliente;
 import com.avantetech.cursomc.dto.ClienteDTO;
+import com.avantetech.cursomc.dto.ClienteNewDTO;
 import com.avantetech.cursomc.services.ClienteService;
 
 @RestController
@@ -37,6 +40,16 @@ public class ClientesResource {
 		// retorno um ok, e no corpo da msg o objeto encontrado
 
 	}
+	
+	// INSERÇÃO
+		@RequestMapping(method = RequestMethod.POST) // iformando que o metodo é post
+		public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO objDto){ // requesBody, faz o json transformar para objeto java
+			Cliente obj = service.fromDTO(objDto);
+			obj = service.insert(obj);
+			URI uri = ServletUriComponentsBuilder.fromCurrentRequest().
+					path("/{id}").buildAndExpand(obj.getId()).toUri(); // pega a uri do novo recurso inserido
+			return ResponseEntity.created(uri).build();
+		}
 
 	// UPDATE
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
