@@ -8,6 +8,7 @@ import org.hibernate.validator.constraints.Length;
 
 import com.avantetech.cursomc.domain.Categoria;
 
+
 public class CategoriaDTO implements Serializable{
 	
 	/**
