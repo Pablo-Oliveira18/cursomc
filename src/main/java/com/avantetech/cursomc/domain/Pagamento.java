@@ -12,10 +12,12 @@ import javax.persistence.OneToOne;
 
 import com.avantetech.cursomc.domain.enums.EstadoPagamento;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED) // mapeando herança
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type") // a minha classe pagamento vai ter um campo adicional q se chama type
 public abstract class Pagamento implements Serializable {
 
 	/**
